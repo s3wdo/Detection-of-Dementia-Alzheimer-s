@@ -1,0 +1,36 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+*.iml
+
+# Secrets and local configuration (commit .env.example only)
+.env
+backend/.env
+
+# Model weights and model configuration with real values
+backend/web/
+backend/models/*
+!backend/models/.gitkeep
+!backend/models/model_config.example.yaml
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+
+# Mobile design-review renders (regenerate with: flutter test tool/screenshots_test.dart --update-goldens)
+mobile/tool/screenshots/
+
+# Machine-learning data, weights and run outputs (never commit ADNI data)
+*.pt
+*.pth
+*.keras
+*.h5
+*.nii
+*.nii.gz
+ml/data/
+ml/runs/
+Results_*/
+.ipynb_checkpoints/

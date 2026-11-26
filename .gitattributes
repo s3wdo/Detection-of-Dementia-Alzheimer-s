@@ -1,0 +1,7 @@
+backend/** text eol=lf
+docker-compose.yml text eol=lf
+*.py text eol=lf
+*.md text eol=lf
+
+# Keep the Junior Phase notebooks out of the GitHub language statistics
+*.ipynb linguist-detectable=false
