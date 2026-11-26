@@ -138,7 +138,16 @@ The trained weights are not stored in git. Put `model.pt` and `model_config.yaml
 
 ### App
 
-Requires Flutter 3.47.
+Prebuilt builds are attached to the [latest release](https://github.com/s3wdo/Detection-of-Dementia-Alzheimer-s/releases/latest):
+
+| File | Platform | Install |
+|:--|:--|:--|
+| `NeuroSense-android.apk` | Android | Open the file on the phone and allow installs from that source |
+| `NeuroSense-ios.ipa` | iOS 15 or later | Open it in [SideStore](https://sidestore.io/), which signs it with your own Apple ID (installs last 7 days) |
+
+After installing, open the server address dialog on the login screen and enter the server's address, or tap **Find server on this Wi-Fi** when the phone and the server are on the same network.
+
+To build the app yourself (requires Flutter 3.47):
 
 ```bash
 cd mobile
@@ -146,8 +155,6 @@ flutter pub get
 flutter run --dart-define=API_BASE_URL=http://<server-ip>:8000/api/v1   # against a running server
 flutter run --dart-define=USE_FIXTURES=true                             # demo data, no server
 ```
-
-The app can also find the server itself: on the login screen, open the server address dialog and tap **Find server on this Wi-Fi**.
 
 To install on an iPhone without a developer account, run the **iOS demo build (.ipa)** workflow under Actions, download the `NeuroSense-ipa` artifact and open it in SideStore.
 
