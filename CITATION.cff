@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you refer to this work, please cite it as below."
+title: "NeuroSense: Smart System for Prediction, Diagnosis and Patient Counseling of Dementia and Alzheimer's Disease"
+type: software
+authors:
+  - given-names: Saud Muhammed
+    family-names: Khan
+  - given-names: Daniel Samer Adnan
+    family-names: Al Haj Yousef
+  - given-names: Majed Mohammad
+    family-names: Baygan
+  - given-names: Becher
+    family-names: Doueidi
+repository-code: "https://github.com/s3wdo/Detection-of-Dementia-Alzheimer-s"
+date-released: 2026-11-26
+keywords:
+  - Alzheimer's disease
+  - mild cognitive impairment
+  - MRI
+  - deep learning
+  - EfficientNetV2
+  - Grad-CAM
+  - clinical decision support
+  - ADNI
