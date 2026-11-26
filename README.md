@@ -134,7 +134,7 @@ docker compose exec api python -m app.db.seed   # fictional development accounts
 
 The API runs at `http://localhost:8000`, with interactive documentation at `/docs`. `GET /health` reports whether a model is loaded.
 
-The trained weights are not stored in git. Put `model.pt` and `model_config.yaml` in `backend/models/` (and `brain_detector.keras` for full-volume upload); without them the server runs a clearly labelled stub predictor. The values for `model_config.yaml` are listed in [`ml/README.md`](ml/README.md#serving-the-model).
+The trained model, its configuration and the brain-slice detector are included in [`backend/models/`](backend/models/), so the server loads the real model on first start. Without them it falls back to a clearly labelled stub predictor.
 
 ### App
 

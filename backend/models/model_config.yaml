@@ -1,0 +1,32 @@
+# Settings for the team's newer EfficientNetV2-S weights (single_rotating_best.pt, 2026-11-23).
+# The previous model and its settings are kept as model-2026-10-14.pt / model_config-2026-10-14.yaml.
+# Class order: AD, LMCI, EMCI, CN (confirmed by the team on 2026-11-23).
+# Preprocessing: "same as before" (team, 2026-11-23): masking, 224 x 224, ImageNet mean/std.
+# Resize: training resized the masked crops with cv2 INTER_AREA, so the server does too
+# (review comment 6). The config used to say bilinear; that step was never applied
+# because the masking step already returns 224 x 224.
+name: EfficientNetV2-S (single_rotating_best)
+version: "2026-11-23"
+architecture: efficientnet_v2_s_linear   # weights-only file; classifier = Linear(1280, 4)
+confirmed: true
+
+input_size: 224
+channels: 3
+resize_interpolation: area
+scale: 0.00392156862
+mean: [0.485, 0.456, 0.406]
+std: [0.229, 0.224, 0.225]
+
+# Output units in order, from the model owner.
+classes:
+  - AD
+  - LMCI
+  - EMCI
+  - CN
+
+output: logits
+
+# Before the model: brain masking as in the training data (app/ml/masking.py).
+masking: brain_v1
+# After the model: Grad-CAM map for the predicted class (app/ml/gradcam.py).
+explain: gradcam

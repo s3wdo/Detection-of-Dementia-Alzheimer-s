@@ -23,7 +23,7 @@ docker compose exec api python -m app.db.seed
 - API: `http://localhost:8000`, interactive docs at `http://localhost:8000/docs`.
 - `GET /health` shows whether a model is loaded: `"model": "stub"` or `"loaded"`.
 - The container applies database migrations (`alembic upgrade head`) every time it starts.
-- `backend/.env` is git-ignored. Never commit it, model files, or database dumps.
+- `backend/.env` is git-ignored. Never commit it or database dumps. The served model files in `backend/models/` are committed on purpose.
 
 ### Seed accounts (fictional, development only)
 
@@ -155,7 +155,7 @@ Settings: `BRAIN_FILTER_PATH`, `BRAIN_FILTER_THRESHOLD` (0.4), `VOLUME_PRUNE_LAS
 
 The server can run on one small Linux machine (planned: Oracle Cloud Always Free, Arm, 1 OCPU, 4 GB). `docker-compose.prod.yml` adds Caddy for HTTPS, and only Caddy's ports 80 and 443 are public. The API and the database publish no ports.
 
-On the machine, `backend/.env` needs `APP_ENV=production`, `DOMAIN=<ip-with-dashes>.sslip.io` and new random values for every secret. In production the server refuses a weak `JWT_SECRET`, and `/docs`, `/redoc` and `/openapi.json` are off. Copy `model.pt` and `model_config.yaml` to `backend/models/` by hand, since they are not in git.
+On the machine, `backend/.env` needs `APP_ENV=production`, `DOMAIN=<ip-with-dashes>.sslip.io` and new random values for every secret. In production the server refuses a weak `JWT_SECRET`, and `/docs`, `/redoc` and `/openapi.json` are off. The model files in `backend/models/` come with the repository.
 
 ```bash
 docker compose --env-file backend/.env -f docker-compose.yml -f docker-compose.prod.yml up -d --build

@@ -34,3 +34,9 @@ ml/data/
 ml/runs/
 Results_*/
 .ipynb_checkpoints/
+
+# The served model files are committed on purpose (see backend/models/README.md)
+!backend/models/model.pt
+!backend/models/brain_detector.keras
+!backend/models/model_config.yaml
+!backend/models/README.md

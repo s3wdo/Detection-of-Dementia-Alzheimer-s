@@ -39,7 +39,7 @@ ADNI data cannot be redistributed. To reproduce the work, apply for access at [a
 | 5. Prune, mask, crop | `brain_slice_masking.py` | Drop the 15 most superior slices of each scan, then mask out everything outside the brain (Otsu threshold at 0.45×, largest component, convex hull, erosion), crop with 8 px padding and resize to 224 × 224 with area interpolation |
 | 6. Normalise | `train_rotating.py` | Three-channel tensor with ImageNet mean and standard deviation |
 
-The script used for stage 3 was not kept, and the brain detector (`EfficientNetV2S_brain_detector.keras`) is not in this repository. The server repeats stages 2 to 6 for full-volume uploads, in `backend/app/ml/`.
+The script used for stage 3 was not kept. The brain detector (`EfficientNetV2S_brain_detector.keras` in `FilterScans.py`) is included as `backend/models/brain_detector.keras`. The server repeats stages 2 to 6 for full-volume uploads, in `backend/app/ml/`.
 
 We used axial slices because they show the largest cross-section of the brain per slice. Masking was added after Grad-CAM showed that an early model was responding to bright regions outside the brain, which depend on the scanner rather than the disease.
 
@@ -96,12 +96,13 @@ All metrics are per slice and come from one random split. The development runs t
 
 ## Serving the model
 
-Save the trained weights as `backend/models/model.pt` and put this `model_config.yaml` next to it:
+The trained weights are committed as [`backend/models/model.pt`](../backend/models/), with this `model_config.yaml` next to them:
 
 ```yaml
 name: EfficientNetV2-S (single_rotating_best)
 version: 2026-11-23
 architecture: efficientnet_v2_s_linear   # weights-only file with a single Linear(1280, 4) head
+confirmed: true
 input_size: 224
 channels: 3
 resize_interpolation: area
@@ -118,4 +119,4 @@ masking: brain_v1
 explain: gradcam
 ```
 
-For full-volume uploads, also copy the brain detector to `backend/models/brain_detector.keras`.
+The brain detector used by `FilterScans.py` is also there, as `backend/models/brain_detector.keras`; the server uses it for full-volume uploads.

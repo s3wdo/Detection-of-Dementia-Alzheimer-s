@@ -5,3 +5,11 @@ docker-compose.yml text eol=lf
 
 # Keep the Junior Phase notebooks out of the GitHub language statistics
 *.ipynb linguist-detectable=false
+
+# Model files are binary: never convert line endings
+*.pt binary
+*.pth binary
+*.keras binary
+*.png binary
+*.apk binary
+*.ipa binary
