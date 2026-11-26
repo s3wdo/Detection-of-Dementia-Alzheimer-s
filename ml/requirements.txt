@@ -1,0 +1,15 @@
+# Model training and data preparation (separate from the server's backend/requirements.txt).
+# Training was run with CUDA on an NVIDIA RTX 5070; install the PyTorch build that matches
+# your CUDA version from https://pytorch.org/get-started/locally/ before the rest.
+torch
+torchvision
+numpy
+pandas
+scikit-learn
+matplotlib
+tqdm
+pillow
+opencv-python
+nibabel
+# Only for FilterScans.py (brain-slice detector)
+tensorflow
