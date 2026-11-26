@@ -93,7 +93,7 @@ EMCI is the class that matters most for this project. Alzheimer's disease can be
 
 **Why 83.90% and not 99.9%.** In an earlier progress report the model reached 99.9% on a split made by slice, where slices of the same person sat in both training and test data. A 2D network can then recognise the person instead of the disease. Under conditions like that our pipeline reached 99.9% (that progress report) and 100% (validation on subjects the final model had already trained on), at or above the best four-class ADNI result in our literature review (El-Assy et al., 99.57%). On people the model has never seen, it reaches 83.90%. That is the figure we report, and as far as we found, it is the only four-class CN, EMCI, LMCI and AD result in the reviewed literature measured on unseen subjects.
 
-All metrics are per slice and come from one random split; the [final report](#documentation) discusses these limits in full.
+All metrics are per slice and come from one random split; the [Senior Final Report](docs/reports/Senior_Final_Report.pdf) discusses these limits in full.
 
 ## The app
 
@@ -189,7 +189,14 @@ Both suites also run on GitHub Actions on every push to `main`.
 | [`docs/decisions-log.md`](docs/decisions-log.md) | Design decisions and the reasons for them |
 | [`ml/README.md`](ml/README.md) | Data pipeline, training setup and evaluation |
 
-The Junior and Senior final reports were submitted to the department and are available from the team on request.
+### Reports
+
+| Report | Date |
+|:--|:--|
+| [Senior Final Report](docs/reports/Senior_Final_Report.pdf) | November 2026 |
+| [Senior Progress Report #2](docs/reports/Senior_Progress_Report_2.pdf) | October 2026 |
+| [Senior Progress Report #1](docs/reports/Senior_Progress_Report_1.pdf) | September 2026 |
+| [Junior Final Report](docs/reports/Junior_Final_Report.pdf) | April 2026 |
 
 ## Team
 
