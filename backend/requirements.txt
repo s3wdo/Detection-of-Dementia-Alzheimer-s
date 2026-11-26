@@ -1,0 +1,21 @@
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+sqlalchemy==2.0.36
+psycopg[binary]==3.2.3
+alembic==1.14.0
+pydantic==2.10.4
+pydantic-settings==2.7.0
+argon2-cffi==23.1.0
+pyjwt==2.10.1
+pillow==11.0.0
+pyyaml==6.0.2
+reportlab==4.2.5
+numpy==2.2.1
+opencv-python-headless==4.10.0.84
+
+# tests
+pytest==8.3.4
+httpx==0.28.1
+nibabel==5.3.2
+# The brain-slice detector (a Keras 3 model) runs on the PyTorch backend.
+keras==3.12.0

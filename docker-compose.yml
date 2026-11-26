@@ -1,0 +1,32 @@
+# NeuroSense development stack: PostgreSQL 16 + the FastAPI server.
+#   cp backend/.env.example backend/.env   (then edit it)
+#   docker compose up -d --build
+#   docker compose exec api python -m app.db.seed
+services:
+  db:
+    image: postgres:16
+    env_file: backend/.env
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5432:5432" # this PC only
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  api:
+    build: backend
+    env_file: backend/.env
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./backend/models:/srv/models:ro
+      - ./backend/web:/srv/web:ro
+    ports:
+      - "8000:8000" # reachable from a phone on the same Wi-Fi (development only, plain HTTP)
+
+volumes:
+  dbdata:

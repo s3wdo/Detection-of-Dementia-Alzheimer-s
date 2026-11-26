@@ -1,0 +1,31 @@
+# Copy to model_config.yaml (next to model.pt) and fill in EVERY value from the
+# training code. The server refuses to use the model while any value is missing,
+# and keeps the stub predictor instead. Do not guess: wrong preprocessing or
+# class order gives confident, wrong results.
+
+name:            # e.g. the architecture name used in the report
+version:         # e.g. v1.0 or the training run date
+
+input_size:      # side length in pixels the model expects, e.g. 224
+channels:        # 1 (grayscale) or 3 (RGB)
+resize_interpolation:   # nearest | bilinear | bicubic | area, as used in training
+
+# Pixel values start as 0-255. They are multiplied by `scale`, then (x - mean) / std.
+scale:           # e.g. 0.00392156862 (1/255), or 1.0 if the model expects 0-255
+mean:            # one value per channel, e.g. [0.485, 0.456, 0.406]
+std:             # one value per channel, e.g. [0.229, 0.224, 0.225]
+
+# Labels in the exact order of the model's output units. Allowed names:
+# AD, LMCI, EMCI, CN
+classes:
+  -
+  -
+  -
+  -
+
+output:          # logits (the server applies softmax) | probabilities
+
+# Optional. brain_v1 = the team's brain masking before the model; none = off.
+masking: none
+# Optional. gradcam = Grad-CAM map for the predicted class (needs model.features); none = off.
+explain: none

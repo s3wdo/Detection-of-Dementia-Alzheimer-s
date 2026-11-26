@@ -1,0 +1,9 @@
+# Secrets and model weights never go into the image.
+.env
+models/*
+!models/.gitkeep
+!models/model_config.example.yaml
+__pycache__/
+.pytest_cache/
+*.pyc
+web/
