@@ -1,0 +1,40 @@
+# Backend tests against a real PostgreSQL 16, on every push that touches the backend.
+name: Backend tests
+
+on:
+  push:
+    branches: [main, backend]
+    paths: ["backend/**", ".github/workflows/backend.yml"]
+  pull_request:
+    paths: ["backend/**"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: neurosense
+          POSTGRES_PASSWORD: ci-only-password
+          POSTGRES_DB: neurosense
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U neurosense" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DATABASE_URL: postgresql+psycopg://neurosense:ci-only-password@localhost:5432/neurosense
+      JWT_SECRET: ci-only-secret-ci-only-secret-ci-only-secret
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+      - run: pip install --index-url https://download.pytorch.org/whl/cpu torch==2.5.1 torchvision==0.20.1
+      - run: pip install -r requirements.txt
+      - run: pytest -q

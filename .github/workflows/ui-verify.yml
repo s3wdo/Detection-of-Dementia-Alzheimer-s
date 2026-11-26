@@ -1,0 +1,68 @@
+# Analyze, test and render the design-review screenshots on a work branch.
+# Used while the local Windows machine cannot run the Dart SDK.
+name: UI verify
+
+on:
+  push:
+    branches: [ui-refinement, backend]
+  workflow_dispatch:
+
+jobs:
+  # The app as a web page, served by the backend from backend/web (see docs/backend.md).
+  web:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: mobile
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.6
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - run: flutter build web --release --dart-define=USE_FIXTURES=false
+      - uses: actions/upload-artifact@v4
+        with:
+          name: NeuroSense-web
+          path: mobile/build/web
+          retention-days: 14
+
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: mobile
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.6
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - name: Analyze
+        run: flutter analyze
+        continue-on-error: true
+        id: analyze
+      - name: Test
+        run: flutter test
+        continue-on-error: true
+        id: test
+      - name: Screenshots
+        if: always()
+        run: |
+          export FLUTTER_ROOT="$(dirname "$(dirname "$(command -v flutter)")")"
+          flutter test tool/screenshots_test.dart --update-goldens
+          flutter test tool/screenshots_test.dart --update-goldens --dart-define=FULL=true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: screenshots
+          path: mobile/tool/screenshots
+      - name: Fail if analyze or tests failed
+        if: steps.analyze.outcome == 'failure' || steps.test.outcome == 'failure'
+        run: exit 1
